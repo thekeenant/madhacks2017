@@ -18,10 +18,11 @@ public class Enemy extends Entity {
 
     @Override
     public void onCollide(List<Entity> entity) {
+
     }
 
     @Override
     public void update() {
-
+        super.update();
     }
 }

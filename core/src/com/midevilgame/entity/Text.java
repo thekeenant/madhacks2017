@@ -64,4 +64,9 @@ public class Text implements Something {
     public float getY() {
         return this.y;
     }
+
+    @Override
+    public boolean canCollide() {
+        return false;
+    }
 }

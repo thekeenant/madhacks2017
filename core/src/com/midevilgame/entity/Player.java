@@ -29,6 +29,8 @@ public class Player extends Entity {
 
     @Override
     public void update() {
+        super.update();
+
         Vector2 before = getPosition();
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {

@@ -62,4 +62,9 @@ public class Attachment implements Something {
     public float getY() {
         return this.attached.getY();
     }
+
+    @Override
+    public boolean canCollide() {
+        return this.attached.canCollide();
+    }
 }

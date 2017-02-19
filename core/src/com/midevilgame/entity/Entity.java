@@ -29,6 +29,11 @@ public abstract class Entity implements Something {
         setPosition(position);
     }
 
+    @Override
+    public boolean canCollide() {
+        return true;
+    }
+
     public abstract void onSpawn();
 
     public abstract void onCollide(List<Entity> entity);
@@ -37,6 +42,9 @@ public abstract class Entity implements Something {
     public void update() {
         List<Entity> collisions = new ArrayList<>();
         for (Something thing : getMap().getThings()) {
+            if (thing.equals(this) || !thing.canCollide())
+                continue;
+
             if (thing instanceof Entity) {
                 Entity entity = (Entity) thing;
                 if (entity.getBounds().overlaps(getBounds())) {

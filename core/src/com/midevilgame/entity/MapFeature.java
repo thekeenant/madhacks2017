@@ -2,20 +2,30 @@ package com.midevilgame.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class MapFeature implements Something {
+    private Sprite sprite;
+
     private final Texture texture;
     private final float x;
     private final float y;
-    private final float width;
-    private final float height;
+    private final int width;
+    private final int height;
+    private final boolean repeating;
 
-    public MapFeature(Texture texture, float x, float y, float width, float height) {
+    public MapFeature(Texture texture, float x, float y, int width, int height, boolean repeating) {
         this.texture = texture;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.repeating = repeating;
+        if (!repeating) {
+            this.sprite = new Sprite(texture);
+            this.sprite.setPosition(x, y);
+            this.sprite.setSize(width, height);
+        }
     }
 
     @Override
@@ -25,7 +35,7 @@ public class MapFeature implements Something {
 
     @Override
     public boolean isRemoved() {
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     @Override
@@ -35,7 +45,12 @@ public class MapFeature implements Something {
 
     @Override
     public void render(Batch batch) {
-        batch.draw(texture, x, y, width, height);
+        if (this.repeating) {
+            batch.draw(texture, x, y, 0, 0, width, height);
+        }
+        else {
+            sprite.draw(batch);
+        }
     }
 
     @Override
@@ -61,5 +76,10 @@ public class MapFeature implements Something {
     @Override
     public float getY() {
         return this.y;
+    }
+
+    @Override
+    public boolean canCollide() {
+        return false;
     }
 }

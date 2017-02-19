@@ -23,5 +23,6 @@ public class Textures {
         CHARACTER_RIGHT = new Texture("Character_Right.png");
         GHOST = new Texture("Ghost.png");
         WALL = new Texture("Brick.png");
+        WALL.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
     }
 }

@@ -14,11 +14,6 @@ public class Fireball extends Projectile {
     }
 
     @Override
-    public void update() {
-        super.update();
-    }
-
-    @Override
     public float getSpeed() {
         return Magic.FIREBALL_SPEED;
     }

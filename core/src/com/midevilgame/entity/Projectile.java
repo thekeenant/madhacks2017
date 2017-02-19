@@ -27,11 +27,14 @@ public abstract class Projectile extends Entity {
         entities.remove(this.shooter);
         for (Entity entity : entities) {
             entity.remove();
+            System.out.println(entity);
         }
     }
 
     @Override
     public void update() {
+        super.update();
+
         double radians = this.angle / 180.0 * Math.PI;
 
         float x = (float) Math.cos(radians) * getSpeed();
