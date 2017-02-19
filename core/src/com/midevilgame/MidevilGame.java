@@ -45,14 +45,18 @@ public class MidevilGame implements ApplicationListener {
             map.addThing(new MapFeature(Textures.WALL, map.getWidth(), 0 - 16, 16, (int) map.getHeight() + 32, true, false));
 
             // right wall
-            map.addThing(new MapFeature(Textures.WALL, 50, 0 - 16, 16, 200, true, false));
+			map.addThing(new MapFeature(Textures.WALL, 50, 0 - 16, 16, 200, true, false));
+
+			map.addThing(new MapFeature(Textures.WALL, 50, 184, 200, 16, true, false));
         }
 
         map.addThing(new Ghost(map, new Vector2(100, 20), 16, 16));
         map.addThing(new Ghost(map, new Vector2(120, 20), 16, 16));
         map.addThing(new Ghost(map, new Vector2(140, 20), 16, 16));
         map.addThing(new Ghost(map, new Vector2(160, 20), 16, 16));
-        map.addThing(new Ghost(map, new Vector2(20, 100), 16, 16));
+		map.addThing(new Ghost(map, new Vector2(20, 100), 16, 16));
+		map.addThing(new Ghost(map, new Vector2(480, 480), 16, 16));
+		map.addThing(new Ghost(map, new Vector2(150, 150), 16, 16));
 
         map.addThing(new GenericEnemy(map, Textures.RED_DRAGON, new Vector2(250, 250), 32, 32, 3, 10, new ProjectileLauncher() {
             @Override
