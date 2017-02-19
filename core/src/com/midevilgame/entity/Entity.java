@@ -14,7 +14,7 @@ import java.util.List;
  * Something that has a position that can change.
  */
 public abstract class Entity implements Something, Collidable {
-    private final Map map;
+    private Map map;
     private final Sprite sprite;
     private boolean removed;
     private boolean spawned;
@@ -136,5 +136,9 @@ public abstract class Entity implements Something, Collidable {
 
     public void add(Vector2 movement) {
         setPosition(getPosition().cpy().add(movement));
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
     }
 }

@@ -7,13 +7,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.midevilgame.assets.Sounds;
-import com.midevilgame.entity.*;
 import com.midevilgame.assets.Fonts;
+import com.midevilgame.assets.Sounds;
 import com.midevilgame.assets.Textures;
+import com.midevilgame.entity.*;
 import com.midevilgame.map.Map;
-
-import java.util.Random;
 
 public class MidevilGame implements ApplicationListener {
 	private Map map;
@@ -27,11 +25,37 @@ public class MidevilGame implements ApplicationListener {
 
 	@Override
 	public void create() {
+
+		Map map2 = new Map(this, 400, 400);
+		{
+			map2.addThing(new MapFeature(Textures.STONE_BG, 0, 0, (int) map2.getWidth(), (int) map2.getHeight(), false, true));
+
+			map2.addThing(new GenericEnemy(map2, Textures.RED_DRAGON, new Vector2(250, 250), 32, 32, 3, 10, new ProjectileLauncher() {
+				@Override
+				public void launch(Entity entity, float angle) {
+					Fireball ball = new Fireball(map2, entity.getPosition(), angle, entity);
+					map.addThing(ball);
+				}
+
+				@Override
+				public int frequency() {
+					return 1500;
+				}
+			}));
+
+			// top wall
+			map2.addThing(new MapFeature(Textures.WALL, 0, map2.getWidth(), (int) map2.getHeight(), 16, true, false));
+			// left wall
+			map2.addThing(new MapFeature(Textures.WALL, 0 - 16, 0, 16, (int) map2.getHeight() + 16, true, false));
+			// bottom wall
+			map2.addThing(new MapFeature(Textures.WALL, 0 - 16, 0 - 16, (int) map2.getHeight() + 16, 16, true, false));
+			// right wall
+			map2.addThing(new MapFeature(Textures.WALL, map2.getWidth(), 0 - 16, 16, (int) map2.getHeight() + 32, true, false));
+		}
+
 		map = new Map(this, 500, 500, Sounds.MUSIC_1);
-
-
-
         {
+
             // background
             map.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 500, 500, false, true));
 
@@ -48,6 +72,8 @@ public class MidevilGame implements ApplicationListener {
 			map.addThing(new MapFeature(Textures.WALL, 50, 0 - 16, 16, 200, true, false));
 
 			map.addThing(new MapFeature(Textures.WALL, 50, 184, 200, 16, true, false));
+
+			map.addThing(new Ladder(300, 16, 16, 16, map2));
         }
 
         map.addThing(new Ghost(map, new Vector2(100, 20), 16, 16));
@@ -58,18 +84,6 @@ public class MidevilGame implements ApplicationListener {
 		map.addThing(new Ghost(map, new Vector2(480, 480), 16, 16));
 		map.addThing(new Ghost(map, new Vector2(150, 150), 16, 16));
 
-        map.addThing(new GenericEnemy(map, Textures.RED_DRAGON, new Vector2(250, 250), 32, 32, 3, 10, new ProjectileLauncher() {
-            @Override
-            public void launch(Entity entity, float angle) {
-                Fireball ball = new Fireball(map, entity.getPosition(), angle, entity);
-                map.addThing(ball);
-            }
-
-            @Override
-            public int frequency() {
-                return 1500;
-            }
-        }));
 
         map.addThing(new Player(map, new Vector2(1, 1), 16, 16));
 
@@ -144,5 +158,9 @@ public class MidevilGame implements ApplicationListener {
 
 	@Override
 	public void pause() {
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
 	}
 }

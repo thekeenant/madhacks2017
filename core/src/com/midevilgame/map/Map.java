@@ -43,6 +43,16 @@ public class Map {
         this(game, width, height, Arrays.asList(tracks));
     }
 
+    public MidevilGame getGame() {
+        return game;
+    }
+
+    public void stop() {
+        if (!this.tracks.isEmpty()) {
+            this.tracks.get(0).stop();
+        }
+    }
+
     public void start() {
         if (!this.tracks.isEmpty())
             this.tracks.get(0).play();

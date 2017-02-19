@@ -8,6 +8,7 @@ public class Textures {
     public static final Texture STONE_BG;
     public static final Texture STONE_FLOOR;
     public static final Texture WALL;
+    public static final Texture LADDER;
 
     // Misc.
     public static final Texture FIREBALL;
@@ -24,6 +25,7 @@ public class Textures {
         STONE_FLOOR = new Texture("map/Stone_Floor.png");
         WALL = new Texture("Brick.png");
         WALL.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+        LADDER = new Texture("map/Ladder.png");
 
         FIREBALL = new Texture("Fireball.png");
         PLAYER_LEFT = new Texture("Player_Left.png");
