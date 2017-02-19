@@ -2,10 +2,10 @@ package com.midevilgame;
 
 import com.badlogic.gdx.InputProcessor;
 
-public class ControlsListener implements InputProcessor {
+public class InputListener implements InputProcessor {
     private final Game game;
 
-    public ControlsListener(Game game) {
+    public InputListener(Game game) {
         this.game = game;
     }
 

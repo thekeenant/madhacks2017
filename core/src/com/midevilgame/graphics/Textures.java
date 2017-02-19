@@ -12,9 +12,9 @@ public class Textures {
     public static final Texture CHARACTER;
 
     static {
-        STONE_BG = new Texture("world/stone-bg.png");
-        STONE_FLOOR = new Texture("world/stone-floor.png");
+        STONE_BG = new Texture("map/stone-bg.png");
+        STONE_FLOOR = new Texture("map/stone-floor.png");
 
-        CHARACTER = new Texture("world/stone-floor.png");
+        CHARACTER = new Texture("character.png");
     }
 }

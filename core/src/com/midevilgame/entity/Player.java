@@ -1,12 +1,11 @@
 package com.midevilgame.entity;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.midevilgame.map.Map;
 
-public class Player extends SentientEntity {
-    private final String name;
-
-    public Player(String name, Vector2 position) {
-        super(position);
-        this.name = name;
+public class Player extends Entity {
+    public Player(Map map, Texture texture, Vector2 position, float width, float height) {
+        super(map, texture, position, width, height);
     }
 }
