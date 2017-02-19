@@ -16,7 +16,7 @@ import com.midevilgame.map.Map;
 
 import java.util.Random;
 
-public class Game implements ApplicationListener {
+public class  Game implements ApplicationListener {
 	private Map currentMap;
 	private OrthographicCamera cam;
     private SpriteBatch overlay;
