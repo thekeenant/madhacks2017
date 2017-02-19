@@ -3,9 +3,13 @@ package com.midevilgame.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.map.Map;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Something that has a position that can change.
@@ -14,6 +18,8 @@ public abstract class Entity implements Something {
     private final Map map;
     private final Sprite sprite;
     private boolean impassable;
+    private boolean removed;
+    private boolean spawned;
 
     public Entity(Map map, Texture texture, Vector2 position, float width, float height) {
         this.map = map;
@@ -21,6 +27,47 @@ public abstract class Entity implements Something {
         this.sprite.setSize(width, height);
         this.impassable = true;
         setPosition(position);
+    }
+
+    public abstract void onSpawn();
+
+    public abstract void onCollide(List<Entity> entity);
+
+    @Override
+    public void update() {
+        List<Entity> collisions = new ArrayList<>();
+        for (Something thing : getMap().getThings()) {
+            if (thing instanceof Entity) {
+                Entity entity = (Entity) thing;
+                if (entity.getBounds().overlaps(getBounds())) {
+                    collisions.add(entity);
+                }
+            }
+        }
+
+        onCollide(collisions);
+    }
+
+    public void setSpawned() {
+        this.spawned = true;
+    }
+
+    public boolean isSpawned() {
+        return this.spawned;
+    }
+
+    @Override
+    public void remove() {
+        this.removed = true;
+    }
+
+    @Override
+    public boolean isRemoved() {
+        return this.removed;
+    }
+
+    public Rectangle getBounds() {
+        return getSprite().getBoundingRectangle();
     }
 
     @Override

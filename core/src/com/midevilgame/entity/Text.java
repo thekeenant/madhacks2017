@@ -9,6 +9,7 @@ public class Text implements Something {
     private final String str;
     private float x;
     private float y;
+    private boolean removed;
 
     public Text(String str, float x, float y) {
         this.x = x;
@@ -17,6 +18,16 @@ public class Text implements Something {
         this.font.getData().setScale(0.5f, 0.5f);
         this.font.setColor(Color.RED);
         this.str = str;
+    }
+
+    @Override
+    public void remove() {
+        this.removed = true;
+    }
+
+    @Override
+    public boolean isRemoved() {
+        return this.removed;
     }
 
     @Override

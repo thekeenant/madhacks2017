@@ -4,33 +4,43 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class Attachment implements Something {
     private final Something base;
-    private final Something attach;
+    private final Something attached;
     private final float offsetX;
     private final float offsetY;
 
-    public Attachment(Something base, Something attach, float offsetX, float offsetY) {
+    public Attachment(Something base, Something attached, float offsetX, float offsetY) {
         this.base = base;
-        this.attach = attach;
+        this.attached = attached;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
     }
 
     @Override
-    public void update() {
-        this.attach.setX(this.base.getX() + this.offsetX);
-        this.attach.setY(this.base.getY() + this.offsetY);
+    public void remove() {
+        this.attached.remove();
+    }
 
-        this.attach.update();
+    @Override
+    public boolean isRemoved() {
+        return this.attached.isRemoved();
+    }
+
+    @Override
+    public void update() {
+        this.attached.setX(this.base.getX() + this.offsetX);
+        this.attached.setY(this.base.getY() + this.offsetY);
+
+        this.attached.update();
     }
 
     @Override
     public void render(Batch batch) {
-        this.attach.render(batch);
+        this.attached.render(batch);
     }
 
     @Override
     public void dispose() {
-        this.attach.dispose();
+        this.attached.dispose();
     }
 
     @Override
@@ -45,11 +55,11 @@ public class Attachment implements Something {
 
     @Override
     public float getX() {
-        return this.attach.getX();
+        return this.attached.getX();
     }
 
     @Override
     public float getY() {
-        return this.attach.getY();
+        return this.attached.getY();
     }
 }

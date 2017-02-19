@@ -8,11 +8,23 @@ import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.Magic;
 import com.midevilgame.map.Map;
 
+import java.util.List;
+
 public class Player extends Entity {
     private float lastDir;
 
     public Player(Map map, Texture texture, Vector2 position, float width, float height) {
         super(map, texture, position, width, height);
+    }
+
+    @Override
+    public void onSpawn() {
+
+    }
+
+    @Override
+    public void onCollide(List<Entity> entity) {
+
     }
 
     @Override
@@ -42,7 +54,7 @@ public class Player extends Entity {
         if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
             Vector2 pos = getMap().getPlayer().getPosition();
             pos.add(diff.scl(4));
-            Projectile proj = new Fireball(getMap(), pos, angle);
+            Projectile proj = new Fireball(getMap(), pos, angle, this);
             getMap().addThing(proj);
         }
     }

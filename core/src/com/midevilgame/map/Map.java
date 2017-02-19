@@ -37,25 +37,34 @@ public class Map {
     }
 
     public void update() {
+        // Remove removed things
+        List<Something> toRemove = new ArrayList<>();
+        for (Something thing : things) {
+            if (thing.isRemoved()) {
+                toRemove.add(thing);
+            }
+        }
+        things.removeAll(toRemove);
+
+        // Update things
         List<Something> things = new ArrayList<>(this.things);
-        for (Something entity : things) {
-            entity.update();
+        for (Something thing : things) {
+            thing.update();
         }
     }
 
     public void render(Batch batch) {
-        List<Something> things = new ArrayList<>(this.things);
         for (Something entity : things) {
             entity.render(batch);
         }
     }
 
     public void addThing(Something entity) {
-        this.things.add(entity);
+        things.add(entity);
     }
 
     public void removeThing(Something entity) {
-        this.things.remove(entity);
+        entity.remove();
     }
 
     public void clearThings() {
