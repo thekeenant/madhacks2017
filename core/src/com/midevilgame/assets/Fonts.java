@@ -1,4 +1,4 @@
-package com.midevilgame.graphics;
+package com.midevilgame.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

@@ -2,7 +2,7 @@ package com.midevilgame.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.midevilgame.Game;
+import com.midevilgame.MidevilGame;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -10,6 +10,6 @@ public class DesktopLauncher {
 		config.resizable = false;
 		config.width = 1280;
 		config.height = 720;
-	 	new LwjglApplication(new Game(), config);
+	 	new LwjglApplication(new MidevilGame(), config);
 	}
 }

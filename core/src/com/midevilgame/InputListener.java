@@ -3,9 +3,9 @@ package com.midevilgame;
 import com.badlogic.gdx.InputProcessor;
 
 public class InputListener implements InputProcessor {
-    private final Game game;
+    private final MidevilGame game;
 
-    public InputListener(Game game) {
+    public InputListener(MidevilGame game) {
         this.game = game;
     }
 

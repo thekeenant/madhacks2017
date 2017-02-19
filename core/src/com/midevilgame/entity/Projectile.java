@@ -17,6 +17,10 @@ public abstract class Projectile extends Entity {
         getSprite().setRotation(this.angle);
     }
 
+    abstract int getDamage();
+
+    abstract void onDamage(LivingEntity target);
+
     @Override
     public void onSpawn() {
 
@@ -27,7 +31,9 @@ public abstract class Projectile extends Entity {
         entities.remove(this.shooter);
         for (Collidable collidable : entities) {
             if (collidable instanceof LivingEntity) {
-                collidable.remove();
+                LivingEntity living = (LivingEntity) collidable;
+                living.damage(getDamage());
+                onDamage(living);
             }
         }
     }

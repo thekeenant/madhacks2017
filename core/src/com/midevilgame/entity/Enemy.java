@@ -7,13 +7,21 @@ import com.midevilgame.map.Map;
 import java.util.List;
 
 public abstract class Enemy extends LivingEntity {
+    private long lastDamageTime;
+
     public Enemy(Map map, Texture texture, Vector2 position, float width, float height) {
         super(map, texture, position, width, height);
     }
 
+    abstract int getDamage();
+
+    long getDamageInterval() {
+        return 500;
+    }
+
     @Override
     public void onSpawn() {
-
+        super.onSpawn();
     }
 
     @Override
@@ -23,7 +31,19 @@ public abstract class Enemy extends LivingEntity {
 
     @Override
     public void onCollide(List<Collidable> collisions) {
+        long now = System.currentTimeMillis();
 
+        long diff = now - lastDamageTime;
+
+        if (diff >= getDamageInterval()) {
+            lastDamageTime = now;
+            for (Collidable collidable : collisions) {
+                if (collidable instanceof Player) {
+                    Player player = (Player) collidable;
+                    player.damage(getDamage());
+                }
+            }
+        }
     }
 
     @Override

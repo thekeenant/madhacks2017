@@ -1,8 +1,7 @@
-package com.midevilgame.graphics;
+package com.midevilgame.assets;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
-import com.midevilgame.entity.Text;
 
 public class Textures {
     // World
@@ -12,7 +11,8 @@ public class Textures {
 
     // Misc.
     public static final Texture FIREBALL;
-    public static final Texture CHARACTER_RIGHT;
+    public static final Texture PLAYER_RIGHT;
+    public static final Texture PLAYER_LEFT;
     public static final Texture GHOST;
 
     public static final Texture HALF_HEART;
@@ -25,7 +25,8 @@ public class Textures {
         WALL.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 
         FIREBALL = new Texture("Fireball.png");
-        CHARACTER_RIGHT = new Texture("Character_Right.png");
+        PLAYER_LEFT = new Texture("Player_Left.png");
+        PLAYER_RIGHT = new Texture("Player_Right.png");
         GHOST = new Texture("Ghost.png");
 
         HALF_HEART = new Texture("Half_Heart.png");

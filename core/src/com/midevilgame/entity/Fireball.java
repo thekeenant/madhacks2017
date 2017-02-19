@@ -2,15 +2,32 @@ package com.midevilgame.entity;
 
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.Magic;
-import com.midevilgame.graphics.Textures;
+import com.midevilgame.assets.Sounds;
+import com.midevilgame.assets.Textures;
 import com.midevilgame.map.Map;
-
-import java.util.List;
 
 public class Fireball extends Projectile {
     public Fireball(Map map, Vector2 position, float angle, Entity shooter) {
         super(map, Textures.FIREBALL, position, 16, 16, angle, shooter);
         getSprite().rotate90(true);
+    }
+
+    @Override
+    int getDamage() {
+        return 1;
+    }
+
+    @Override
+    void onDamage(LivingEntity target) {
+        // fireball impact sound
+        remove();
+    }
+
+    @Override
+    public void onSpawn() {
+        super.onSpawn();
+
+        Sounds.FIREBALL_LAUNCH.play();
     }
 
     @Override

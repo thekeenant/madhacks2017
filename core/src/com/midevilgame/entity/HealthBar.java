@@ -2,7 +2,7 @@ package com.midevilgame.entity;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.midevilgame.graphics.Textures;
+import com.midevilgame.assets.Textures;
 
 public class HealthBar implements Something {
     private final LivingEntity entity;
@@ -18,7 +18,7 @@ public class HealthBar implements Something {
 
     @Override
     public boolean isRemoved() {
-        return false;
+        return entity.isRemoved();
     }
 
     @Override

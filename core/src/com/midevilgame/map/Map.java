@@ -1,21 +1,40 @@
 package com.midevilgame.map;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.midevilgame.MidevilGame;
 import com.midevilgame.entity.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Map {
+    private final MidevilGame game;
     private final float width;
     private final float height;
+    private final List<Music> tracks;
+    private boolean started = false;
 
     private List<Something> things;
 
-    public Map(float width, float height) {
+    public Map(MidevilGame game, float width, float height, List<Music> tracks) {
+        this.game = game;
         this.width = width;
         this.height = height;
         this.things = new ArrayList<>();
+        this.tracks = tracks;
+    }
+
+    public Map(MidevilGame game, float width, float height, Music... tracks) {
+        this(game, width, height, Arrays.asList(tracks));
+    }
+
+    public void start() {
+        if (!this.tracks.isEmpty())
+            this.tracks.get(0).play();
+
+        started = true;
     }
 
     public Player getPlayer() {
@@ -36,6 +55,7 @@ public class Map {
     }
 
     public void update() {
+
         // Remove removed things
         List<Something> toRemove = new ArrayList<>();
         for (Something thing : things) {
