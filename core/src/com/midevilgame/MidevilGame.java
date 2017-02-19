@@ -29,11 +29,12 @@ public class MidevilGame implements ApplicationListener {
 	public void create() {
 		map = new Map(this, 1000, 1000, Sounds.MUSIC_1);
 
-		map.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 1000, 1000, false, true));
-		map.addThing(new Player(map, new Vector2(1, 1), 16, 16));
-		map.addThing(new Ghost(map, new Vector2(100, 20), 16, 16));
+
 
         {
+            // background
+            map.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 1000, 1000, false, true));
+
             // top wall
             map.addThing(new MapFeature(Textures.WALL, 0, 1000, 1000, 16, true, false));
             // left wall
@@ -42,9 +43,17 @@ public class MidevilGame implements ApplicationListener {
             map.addThing(new MapFeature(Textures.WALL, 0 - 16, 0 - 16, 1016, 16, true, false));
             // right wall
             map.addThing(new MapFeature(Textures.WALL, 1000, 0 - 16, 16, 1032, true, false));
+
             // right wall
-            map.addThing(new MapFeature(Textures.WALL, 50, 0 - 16, 15, 200, true, false));
+            map.addThing(new MapFeature(Textures.WALL, 50, 0 - 16, 16, 200, true, true));
         }
+
+        map.addThing(new Ghost(map, new Vector2(100, 20), 16, 16));
+
+        map.addThing(new Ghost(map, new Vector2(20, 100), 16, 16));
+        map.addThing(new Ghost(map, new Vector2(500, 500), 16, 16));
+
+        map.addThing(new Player(map, new Vector2(1, 1), 16, 16));
 
 		Gdx.input.setInputProcessor(new InputListener(this));
 

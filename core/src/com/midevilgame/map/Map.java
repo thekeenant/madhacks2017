@@ -54,6 +54,8 @@ public class Map {
                 Vector2 point = new Vector2(x * 16, y * 16);
                 Rectangle area = new Rectangle(point.x, point.y, 16, 16);
                 for (Something thing : things) {
+                    if (thing instanceof Entity)
+                        continue;
                     if (thing instanceof Collidable) {
                         Collidable collider = (Collidable) thing;
                         if (collider.colliding(area)) {
