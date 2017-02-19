@@ -27,6 +27,7 @@ public class Game implements ApplicationListener {
 
 		currentMap.addThing(new StaticEntity(currentMap, Textures.STONE_BG, new Vector2(), 1000, 1000));
 		currentMap.addThing(new Player(currentMap, Textures.CHARACTER_RIGHT, new Vector2(), 16, 16));
+		currentMap.addThing(new Ghost(currentMap, new Vector2(750, 750), 16, 16));
 
 		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", 0, 0), -5, 24);
 		currentMap.addThing(attachment);

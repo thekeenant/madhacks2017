@@ -105,4 +105,8 @@ public abstract class Entity implements Something {
     public void addY(float y) {
         setY(getY() + y);
     }
+
+    public void add(Vector2 movement) {
+        setPosition(getPosition().cpy().add(movement));
+    }
 }

@@ -40,7 +40,9 @@ public class Player extends Entity {
         lastDir = angle;
 
         if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            Projectile proj = new Fireball(getMap(), getMap().getPlayer().getPosition(), angle);
+            Vector2 pos = getMap().getPlayer().getPosition();
+            pos.add(diff.scl(4));
+            Projectile proj = new Fireball(getMap(), pos, angle);
             getMap().addThing(proj);
         }
     }
