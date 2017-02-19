@@ -16,6 +16,7 @@ public class Ghost extends Enemy {
     @Override
     public void update() {
         Vector2 playerVector = getMap().getPlayer().getPosition();
+        // +2 so it doesn't jitter when directly in line with player (constantly switching between pos and neg)
         if (this.getPosition().x > playerVector.x + 2) {
             this.addX(-2);
         } else if (this.getX() < playerVector.x){
