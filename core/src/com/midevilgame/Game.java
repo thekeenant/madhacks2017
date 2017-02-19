@@ -1,86 +1,108 @@
 package com.midevilgame;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.midevilgame.entity.*;
+import com.midevilgame.graphics.Textures;
+import com.midevilgame.map.Map;
 
-import java.util.ArrayList;
+public class Game implements ApplicationListener {
+	private Map currentMap;
+	private OrthographicCamera cam;
+	private SpriteBatch batch;
 
-public class Game extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture playerTexture, enemyTexture;
-	Sprite player;
-	ArrayList<Projectile> projectiles;
-	ArrayList<Enemy> enemies;
-    int playerX, playerY;
-    private int scale = 5;
-	
+	public OrthographicCamera getCam() {
+		return cam;
+	}
+
 	@Override
 	public void create() {
+		currentMap = new Map(1000, 1000);
+
+		currentMap.addEntity(new Entity(currentMap, Textures.STONE_BG, new Vector2(), 1000, 1000));
+		currentMap.addEntity(new Player(currentMap, Textures.CHARACTER_RIGHT, new Vector2(), 16, 16));
+
+		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", 0, 0), -5, 24);
+		currentMap.addEntity(attachment);
+
+
+		Gdx.input.setInputProcessor(new InputListener(this));
+
+		float width = Gdx.graphics.getWidth();
+		float height = Gdx.graphics.getHeight();
+
+		// Constructs a new OrthographicCamera, using the given viewport width and height
+		// Height is multiplied by aspect ratio.
+		cam = new OrthographicCamera(100, 100 * (height / width));
+
+		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+		cam.update();
+
 		batch = new SpriteBatch();
-		projectiles = new ArrayList<Projectile>();
-        playerTexture = new Texture("Character_Right.png");
-        enemyTexture = new Texture("Ghost.png");
-        player = new Sprite(playerTexture, 0 , 0, playerTexture.getWidth(), playerTexture.getHeight());
-        player.setScale(scale);
-        enemies = new ArrayList<Enemy>();
-        enemies.add(new Enemy(enemyTexture));
-    }
+	}
 
 	@Override
 	public void render() {
-	    update();
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		handleInput();
+		currentMap.update();
+		cam.update();
+		batch.setProjectionMatrix(cam.combined);
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		batch.begin();
-//		batch.draw(playerTexture, playerX, playerY, playerTexture.getWidth() * scale, playerTexture.getHeight() * scale);
-        player.draw(batch);
-        enemies.get(0).draw(batch);
-		for (Projectile p : projectiles) {
-		    p.draw(batch);
-        }
+
+		currentMap.render(batch);
+
 		batch.end();
 	}
-	
-	@Override
-	public void dispose() {
-		batch.dispose();
-		playerTexture.dispose();
+
+	private void handleInput() {
+		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+			currentMap.getPlayer().addX(-3.0f);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+			currentMap.getPlayer().addX(3.0f);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+			currentMap.getPlayer().addY(-3.0f);
+		}
+		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+			currentMap.getPlayer().addY(3.0f);
+		}
+		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+			System.out.println(currentMap.getPlayer().getPosition());
+			System.out.println("test");
+			Projectile proj = new Projectile(currentMap, Textures.FIREBALL, currentMap.getPlayer().getPosition(), 16, 16, 0);
+			currentMap.addEntity(proj);
+		}
+		cam.position.set(currentMap.getPlayer().getCenter(), 0);
 	}
 
-	void handleInput() {
-	    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-	        player.setX(player.getX() - 2);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.setX(player.getX() + 2);
-        }
+	@Override
+	public void resize(int width, int height) {
+		cam.viewportWidth = 100f;
+		cam.viewportHeight = 100f * height/width;
+		cam.update();
+	}
 
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.setY(player.getY() - 2);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.setY(player.getY() + 2);
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-	        // Shoot a fireball here
-            Texture texture = new Texture("Fireball.png");
-            Projectile fireball = new Projectile(texture, player.getX(), player.getY());
-            fireball.setScale(scale);
+	@Override
+	public void resume() {
+	}
 
-            projectiles.add(fireball);
+	@Override
+	public void dispose() {
+		currentMap.dispose();
+		batch.dispose();
+	}
 
-        }
-
-    }
-    void update() {
-	    handleInput();
-	    for (Projectile p : projectiles) {
-	        p.setX(p.getX() + 5);
-        }
-    }
+	@Override
+	public void pause() {
+	}
 }
