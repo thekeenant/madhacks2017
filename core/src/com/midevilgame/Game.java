@@ -29,7 +29,14 @@ public class Game implements ApplicationListener {
 		currentMap.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 1000, 1000, false));
 		currentMap.addThing(new Player(currentMap, Textures.CHARACTER_RIGHT, new Vector2(), 16, 16));
 		currentMap.addThing(new Ghost(currentMap, new Vector2(750, 750), 16, 16));
+		// top wall
         currentMap.addThing(new MapFeature(Textures.WALL, 0, 1000, 1000, 16, true));
+        // left wall
+        currentMap.addThing(new MapFeature(Textures.WALL, 0 - 16, 0, 16, 1016, true));
+        // bottom wall
+        currentMap.addThing(new MapFeature(Textures.WALL, 0 - 16, 0 - 16, 1016, 16, true));
+        // right wall
+        currentMap.addThing(new MapFeature(Textures.WALL, 1000, 0 - 16, 16, 1032, true));
 		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", 0, 0), -5, 24);
 		currentMap.addThing(attachment);
 
