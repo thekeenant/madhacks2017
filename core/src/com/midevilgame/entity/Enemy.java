@@ -3,6 +3,7 @@ package com.midevilgame.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.Magic;
+import com.midevilgame.assets.Sounds;
 import com.midevilgame.map.Map;
 import org.xguzm.pathfinding.grid.GridCell;
 
@@ -30,6 +31,9 @@ public abstract class Enemy extends LivingEntity {
     public void update() {
         super.update();
 
+        if (getMap().getPlayer().isDead())
+            return;
+
         Vector2 target = getMap().getPlayer().getPosition();
 
         Vector2 next = getMap().findNextPathPoint(getPosition(), target);
@@ -42,6 +46,9 @@ public abstract class Enemy extends LivingEntity {
 
     @Override
     public void onCollide(List<Collidable> collisions) {
+        if (getMap().getPlayer().isDead())
+            return;
+
         long now = System.currentTimeMillis();
 
         long diff = now - lastDamageTime;
@@ -52,6 +59,8 @@ public abstract class Enemy extends LivingEntity {
                 if (collidable instanceof Player) {
                     Player player = (Player) collidable;
                     player.damage(getDamage());
+
+                    Sounds.OUCH.play();
                 }
             }
         }

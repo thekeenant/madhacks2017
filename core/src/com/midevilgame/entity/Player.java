@@ -110,8 +110,7 @@ public class Player extends LivingEntity {
 
         if (now - lastFire > 1000) {
             if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-                Vector2 pos = getMap().getPlayer().getPosition();
-                pos.add(lastDir.cpy().scl(2));
+                Vector2 pos = getMap().getPlayer().getCenter();
                 Projectile proj = new Fireball(getMap(), pos, lastAngle, this);
                 getMap().addThing(proj);
                 lastFire = now;

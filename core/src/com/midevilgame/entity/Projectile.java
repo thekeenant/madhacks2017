@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.map.Map;
 
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class Projectile extends Entity {
@@ -29,15 +30,29 @@ public abstract class Projectile extends Entity {
 
     @Override
     public void onCollide(List<Collidable> entities) {
-        entities.remove(this.shooter);
+        if (this.shooter instanceof Player) {
+            entities.remove(this.shooter);
+        }
+        else if (this.shooter instanceof Enemy) {
+            Iterator<Collidable> iterator = entities.iterator();
+            while (iterator.hasNext()) {
+                Collidable collider = iterator.next();
+                if (collider instanceof Enemy) {
+                    iterator.remove();
+                }
+            }
+        }
+
         for (Collidable collidable : entities) {
             if (collidable instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity) collidable;
                 living.damage(getDamage());
                 onDamage(living);
+                break;
             }
             else if (!collidable.isPassable()) {
                 remove();
+                break;
             }
         }
     }

@@ -8,7 +8,7 @@ import com.midevilgame.map.Map;
 
 public class Fireball extends Projectile {
     public Fireball(Map map, Vector2 position, float angle, Entity shooter) {
-        super(map, Textures.FIREBALL, position, 16, 16, angle, shooter);
+        super(map, Textures.FIREBALL, position, 8, 7, angle, shooter);
         getSprite().rotate90(true);
     }
 

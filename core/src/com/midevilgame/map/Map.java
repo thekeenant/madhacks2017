@@ -86,7 +86,11 @@ public class Map {
         int fromY = (int) Math.floor(pos.y / 16.0f);
         int toX = (int) Math.floor(target.x / 16.0f);
         int toY = (int) Math.floor(target.y / 16.0f);
-        return finder.findPath(fromX, fromY, toX, toY, navigation);
+        try {
+            return finder.findPath(fromX, fromY, toX, toY, navigation);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
     public Player getPlayer() {

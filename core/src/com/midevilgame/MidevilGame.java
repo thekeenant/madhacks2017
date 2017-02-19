@@ -54,6 +54,19 @@ public class MidevilGame implements ApplicationListener {
         map.addThing(new Ghost(map, new Vector2(160, 20), 16, 16));
         map.addThing(new Ghost(map, new Vector2(20, 100), 16, 16));
 
+        map.addThing(new GenericEnemy(map, Textures.RED_DRAGON, new Vector2(250, 250), 32, 32, 3, 10, new ProjectileLauncher() {
+            @Override
+            public void launch(Entity entity, float angle) {
+                Fireball ball = new Fireball(map, entity.getPosition(), angle, entity);
+                map.addThing(ball);
+            }
+
+            @Override
+            public int frequency() {
+                return 1500;
+            }
+        }));
+
         map.addThing(new Player(map, new Vector2(1, 1), 16, 16));
 
 		Gdx.input.setInputProcessor(new InputListener(this));
@@ -94,6 +107,14 @@ public class MidevilGame implements ApplicationListener {
 
         // Render overlay
         overlay.begin();
+
+        if (map.getPlayer().isDead()) {
+            Text shadow = new Text("You lost!", 375, 105 , Fonts.DEF_32, Color.BLACK, 2);
+            shadow.render(overlay);
+            Text text = new Text("You lost!", 380, 100, Fonts.DEF_32, Color.WHITE, 2);
+            text.render(overlay);
+        }
+
         overlay.end();
     }
 

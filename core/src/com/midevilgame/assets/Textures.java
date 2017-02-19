@@ -14,6 +14,7 @@ public class Textures {
     public static final Texture PLAYER_RIGHT;
     public static final Texture PLAYER_LEFT;
     public static final Texture GHOST;
+    public static final Texture RED_DRAGON;
 
     public static final Texture HALF_HEART;
     public static final Texture FULL_HEART;
@@ -28,6 +29,7 @@ public class Textures {
         PLAYER_LEFT = new Texture("Player_Left.png");
         PLAYER_RIGHT = new Texture("Player_Right.png");
         GHOST = new Texture("Ghost.png");
+        RED_DRAGON = new Texture("Red_Dragon.png");
 
         HALF_HEART = new Texture("Half_Heart.png");
         FULL_HEART = new Texture("Full_Heart.png");
