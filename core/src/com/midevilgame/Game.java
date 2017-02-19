@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.entity.*;
+import com.midevilgame.graphics.Fonts;
 import com.midevilgame.graphics.Textures;
 import com.midevilgame.map.Map;
 
@@ -31,8 +32,16 @@ public class Game implements ApplicationListener {
 
 		currentMap.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 1000, 1000, false));
 		currentMap.addThing(new Player(currentMap, Textures.CHARACTER_RIGHT, new Vector2(), 16, 16));
+		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", Fonts.DEF_16, 0, 0), -5, 24);
+		currentMap.addThing(new Ghost(currentMap, new Vector2(750, 750), 16, 16));
+		// top wall
         currentMap.addThing(new MapFeature(Textures.WALL, 0, 1000, 1000, 16, true));
-		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", 0, 0, 0.3f, 0.3f), -5, 24);
+        // left wall
+        currentMap.addThing(new MapFeature(Textures.WALL, 0 - 16, 0, 16, 1016, true));
+        // bottom wall
+        currentMap.addThing(new MapFeature(Textures.WALL, 0 - 16, 0 - 16, 1016, 16, true));
+        // right wall
+        currentMap.addThing(new MapFeature(Textures.WALL, 1000, 0 - 16, 16, 1032, true));
 		currentMap.addThing(attachment);
 
 
@@ -40,8 +49,6 @@ public class Game implements ApplicationListener {
             for (int y = 100; y < 1000; y += new Random().nextInt(100)) {
                 Ghost ghost = new Ghost(currentMap, new Vector2(x, y), 16, 16);
                 currentMap.addThing(ghost);
-                Attachment spooky = new Attachment(ghost, new Text("||||||||||||||", 0, 0, 0.4f, 0.4f), -5, 24);
-                currentMap.addThing(spooky);
             }
         }
 
@@ -79,7 +86,7 @@ public class Game implements ApplicationListener {
 
         overlay.begin();
 
-        Text text = new Text("test", 50, 50, 10, 10);
+        Text text = new Text("test", Fonts.DEF_16, 50, 50);
         text.render(overlay);
 
         overlay.end();
