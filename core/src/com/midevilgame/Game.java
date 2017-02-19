@@ -25,12 +25,11 @@ public class Game implements ApplicationListener {
 	public void create() {
 		currentMap = new Map(1000, 1000);
 
-		currentMap.addEntity(new Entity(currentMap, Textures.STONE_BG, new Vector2(), 1000, 1000));
-		currentMap.addEntity(new Player(currentMap, Textures.CHARACTER_RIGHT, new Vector2(), 16, 16));
+		currentMap.addThing(new StaticEntity(currentMap, Textures.STONE_BG, new Vector2(), 1000, 1000));
+		currentMap.addThing(new Player(currentMap, Textures.CHARACTER_RIGHT, new Vector2(), 16, 16));
 
 		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", 0, 0), -5, 24);
-		currentMap.addEntity(attachment);
-
+		currentMap.addThing(attachment);
 
 		Gdx.input.setInputProcessor(new InputListener(this));
 
@@ -49,9 +48,10 @@ public class Game implements ApplicationListener {
 
 	@Override
 	public void render() {
-		handleInput();
 		currentMap.update();
+		cam.position.set(currentMap.getPlayer().getCenter(), 0);
 		cam.update();
+
 		batch.setProjectionMatrix(cam.combined);
 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -64,25 +64,6 @@ public class Game implements ApplicationListener {
 	}
 
 	private void handleInput() {
-		if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-			currentMap.getPlayer().addX(-3.0f);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-			currentMap.getPlayer().addX(3.0f);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-			currentMap.getPlayer().addY(-3.0f);
-		}
-		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-			currentMap.getPlayer().addY(3.0f);
-		}
-		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-			System.out.println(currentMap.getPlayer().getPosition());
-			System.out.println("test");
-			Projectile proj = new Projectile(currentMap, Textures.FIREBALL, currentMap.getPlayer().getPosition(), 16, 16, 0);
-			currentMap.addEntity(proj);
-		}
-		cam.position.set(currentMap.getPlayer().getCenter(), 0);
 	}
 
 	@Override

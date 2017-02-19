@@ -10,7 +10,7 @@ import com.midevilgame.map.Map;
 /**
  * Something that has a position that can change.
  */
-public class Entity implements Something {
+public abstract class Entity implements Something {
     private final Map map;
     private final Sprite sprite;
     private boolean impassable;
@@ -21,11 +21,6 @@ public class Entity implements Something {
         this.sprite.setSize(width, height);
         this.impassable = true;
         setPosition(position);
-    }
-
-    @Override
-    public void update() {
-
     }
 
     @Override

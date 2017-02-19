@@ -11,16 +11,16 @@ public class Map {
     private final float width;
     private final float height;
 
-    private List<Something> entities;
+    private List<Something> things;
 
     public Map(float width, float height) {
         this.width = width;
         this.height = height;
-        this.entities = new ArrayList<>();
+        this.things = new ArrayList<>();
     }
 
     public Player getPlayer() {
-        for (Something entity : entities) {
+        for (Something entity : things) {
             if (entity instanceof Player) {
                 return (Player) entity;
             }
@@ -37,31 +37,37 @@ public class Map {
     }
 
     public void update() {
-        for (Something entity : entities) {
+        List<Something> things = new ArrayList<>(this.things);
+        for (Something entity : things) {
             entity.update();
         }
     }
 
     public void render(Batch batch) {
-        for (Something entity : entities) {
+        List<Something> things = new ArrayList<>(this.things);
+        for (Something entity : things) {
             entity.render(batch);
         }
     }
 
-    public void addEntity(Something entity) {
-        this.entities.add(entity);
+    public void addThing(Something entity) {
+        this.things.add(entity);
     }
 
-    public void removeEntity(Something entity) {
-        this.entities.remove(entity);
+    public void removeThing(Something entity) {
+        this.things.remove(entity);
     }
 
-    public void clearEntities() {
-        this.entities.clear();
+    public void clearThings() {
+        this.things.clear();
+    }
+
+    public List<Something> getThings() {
+        return this.things;
     }
 
     public void dispose() {
-        for (Something entity : this.entities) {
+        for (Something entity : this.things) {
             entity.dispose();
         }
     }

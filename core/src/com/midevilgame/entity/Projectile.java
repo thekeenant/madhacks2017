@@ -4,25 +4,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.map.Map;
 
-public class Projectile extends Entity {
+public abstract class Projectile extends Entity {
     private final float angle;
 
     public Projectile(Map map, Texture texture, Vector2 position, float width, float height, float angle) {
         super(map, texture, position, width, height);
-
         this.angle = angle;
+        getSprite().setRotation(this.angle);
     }
 
     @Override
     public void update() {
-        getSprite().rotate(this.angle);
-
         double radians = this.angle / 180.0 * Math.PI;
 
-        float x = (float) Math.cos(radians);
-        float y = (float) Math.sin(radians);
+        float x = (float) Math.cos(radians) * getSpeed();
+        float y = (float) Math.sin(radians) * getSpeed();
 
         addX(x);
         addY(y);
     }
+
+    public abstract float getSpeed();
 }
