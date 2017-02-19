@@ -17,12 +17,7 @@ public class Ghost extends Enemy {
 
     @Override
     public void update() {
-        Vector2 target = getMap().getPlayer().getPosition();
-
-        Vector2 movement = target.sub(getCenter());
-        movement.nor().scl(Magic.GHOST_SPEED);
-
-        add(movement);
+        super.update();
     }
 
     @Override

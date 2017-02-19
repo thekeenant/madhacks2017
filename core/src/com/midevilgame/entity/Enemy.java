@@ -2,7 +2,9 @@ package com.midevilgame.entity;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.midevilgame.Magic;
 import com.midevilgame.map.Map;
+import org.xguzm.pathfinding.grid.GridCell;
 
 import java.util.List;
 
@@ -27,6 +29,15 @@ public abstract class Enemy extends LivingEntity {
     @Override
     public void update() {
         super.update();
+
+        Vector2 target = getMap().getPlayer().getPosition();
+
+        Vector2 next = getMap().findNextPathPoint(getPosition(), target);
+
+        Vector2 movement = next.sub(getPosition());
+        movement.nor().scl(Magic.GHOST_SPEED);
+
+        add(movement);
     }
 
     @Override

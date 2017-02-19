@@ -31,7 +31,7 @@ public class MidevilGame implements ApplicationListener {
 
 		map.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 1000, 1000, false));
 		map.addThing(new Player(map, new Vector2(), 16, 16));
-		map.addThing(new Ghost(map, new Vector2(750, 750), 16, 16));
+		map.addThing(new Ghost(map, new Vector2(20, 20), 16, 16));
 		// top wall
         map.addThing(new MapFeature(Textures.WALL, 0, 1000, 1000, 16, true));
         // left wall

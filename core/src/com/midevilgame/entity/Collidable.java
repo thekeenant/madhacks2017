@@ -14,4 +14,8 @@ public interface Collidable extends Something {
     default boolean colliding(Collidable other) {
         return getBounds().overlaps(other.getBounds());
     }
+
+    default boolean colliding(Rectangle other) {
+        return getBounds().overlaps(other);
+    }
 }
