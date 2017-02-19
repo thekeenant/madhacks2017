@@ -16,5 +16,13 @@ public class Projectile extends Entity {
     @Override
     public void update() {
         getSprite().rotate(this.angle);
+
+        double radians = this.angle / 180.0 * Math.PI;
+
+        float x = (float) Math.cos(radians);
+        float y = (float) Math.sin(radians);
+
+        addX(x);
+        addY(y);
     }
 }

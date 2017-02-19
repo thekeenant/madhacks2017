@@ -76,7 +76,7 @@ public class Game implements ApplicationListener {
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			currentMap.getPlayer().addY(3.0f);
 		}
-		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
 			System.out.println(currentMap.getPlayer().getPosition());
 			System.out.println("test");
 			Projectile proj = new Projectile(currentMap, Textures.FIREBALL, currentMap.getPlayer().getPosition(), 16, 16, 0);
