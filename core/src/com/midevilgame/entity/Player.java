@@ -19,8 +19,18 @@ public class Player extends LivingEntity {
     }
 
     @Override
-    public void onSpawn() {
+    int getHealth() {
+        return 5;
+    }
 
+    @Override
+    int getMaxHealth() {
+        return 6;
+    }
+
+    @Override
+    public void onSpawn() {
+        super.onSpawn();
     }
 
     @Override

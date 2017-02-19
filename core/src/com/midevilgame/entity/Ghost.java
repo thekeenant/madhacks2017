@@ -22,4 +22,14 @@ public class Ghost extends Enemy {
 
         add(movement);
     }
+
+    @Override
+    int getHealth() {
+        return 10;
+    }
+
+    @Override
+    int getMaxHealth() {
+        return 10;
+    }
 }

@@ -6,7 +6,7 @@ import com.midevilgame.map.Map;
 
 import java.util.List;
 
-public class Enemy extends LivingEntity {
+public abstract class Enemy extends LivingEntity {
     public Enemy(Map map, Texture texture, Vector2 position, float width, float height) {
         super(map, texture, position, width, height);
     }

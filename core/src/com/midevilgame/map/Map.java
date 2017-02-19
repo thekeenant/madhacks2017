@@ -1,9 +1,7 @@
 package com.midevilgame.map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.midevilgame.entity.Collidable;
-import com.midevilgame.entity.Player;
-import com.midevilgame.entity.Something;
+import com.midevilgame.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +79,10 @@ public class Map {
 
     public void addThing(Something entity) {
         things.add(entity);
+        if (entity instanceof Entity) {
+            ((Entity) entity).setSpawned();
+            ((Entity) entity).onSpawn();
+        }
     }
 
     public void removeThing(Something entity) {

@@ -1,26 +1,31 @@
 package com.midevilgame.entity;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.midevilgame.graphics.Fonts;
 
 public class Text implements Something {
     private final BitmapFont font;
-    private final String str;
+    private Color color;
+    private float scale;
+    private final String text;
     private float x;
     private float y;
     private boolean removed;
 
-    public Text(String str, FileHandle font, float x, float y) {
+    public Text(String text, float x, float y, BitmapFont font, Color color, float scale) {
+        this.text = text;
         this.x = x;
         this.y = y;
-        this.font = new BitmapFont(Fonts.DEF_16);
-        this.font.setColor(Color.RED);
-        this.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        this.str = str;
+        this.font = font;
+//        this.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        this.color = color;
+        this.scale = scale;
+    }
+
+    public Text(String text, float x, float y, BitmapFont font, Color color) {
+        this(text, x, y, font, color, 1.0f);
     }
 
     @Override
@@ -40,7 +45,9 @@ public class Text implements Something {
 
     @Override
     public void render(Batch batch) {
-        this.font.draw(batch, str, x, y);
+        this.font.getData().setScale(this.scale);
+        this.font.setColor(color);
+        this.font.draw(batch, text, x, y);
     }
 
     @Override
