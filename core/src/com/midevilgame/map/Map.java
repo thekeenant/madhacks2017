@@ -53,16 +53,17 @@ public class Map {
             for (int y = 0; y < cellsHigh; y += 1) {
                 Vector2 point = new Vector2(x * 16, y * 16);
                 Rectangle area = new Rectangle(point.x, point.y, 16, 16);
+                cells[x][y] = new GridCell(x, y, true);
                 for (Something thing : things) {
+
                     if (thing instanceof Entity)
                         continue;
+
                     if (thing instanceof Collidable) {
                         Collidable collider = (Collidable) thing;
-                        if (collider.colliding(area)) {
+                        if (!collider.isPassable() && collider.colliding(area)) {
                             cells[x][y] = new GridCell(x, y, false);
-                        }
-                        else {
-                            cells[x][y] = new GridCell(x, y, true);
+                            break;
                         }
                     }
                 }

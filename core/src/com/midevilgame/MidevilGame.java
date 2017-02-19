@@ -33,7 +33,7 @@ public class MidevilGame implements ApplicationListener {
 
         {
             // background
-            map.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 1000, 1000, false, true));
+            map.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 500, 500, false, true));
 
             // top wall
             map.addThing(new MapFeature(Textures.WALL, 0, 1000, 1000, 16, true, false));
@@ -45,7 +45,7 @@ public class MidevilGame implements ApplicationListener {
             map.addThing(new MapFeature(Textures.WALL, 1000, 0 - 16, 16, 1032, true, false));
 
             // right wall
-            map.addThing(new MapFeature(Textures.WALL, 50, 0 - 16, 16, 200, true, true));
+            map.addThing(new MapFeature(Textures.WALL, 50, 0 - 16, 16, 200, true, false));
         }
 
         map.addThing(new Ghost(map, new Vector2(100, 20), 16, 16));
