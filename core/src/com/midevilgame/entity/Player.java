@@ -10,8 +10,9 @@ import com.midevilgame.map.Map;
 
 import java.util.List;
 
-public class Player extends Entity {
-    private float lastDir;
+public class Player extends LivingEntity {
+    private Vector2 lastDir = Vector2.Zero;
+    private float lastAngle;
 
     public Player(Map map, Texture texture, Vector2 position, float width, float height) {
         super(map, texture, position, width, height);
@@ -23,8 +24,13 @@ public class Player extends Entity {
     }
 
     @Override
-    public void onCollide(List<Entity> entity) {
+    public void onCollide(List<Collidable> entity) {
 
+    }
+
+    @Override
+    public boolean isPassable() {
+        return true;
     }
 
     @Override
@@ -48,15 +54,19 @@ public class Player extends Entity {
 
         Vector2 after = getPosition();
 
-        Vector2 diff = after.sub(before);
+        if (!after.equals(before)) {
+            Vector2 diff = after.sub(before);
 
-        float angle = diff.angle();
-        lastDir = angle;
+            float angle = diff.angle();
+
+            this.lastDir = diff;
+            this.lastAngle = angle;
+        }
 
         if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
             Vector2 pos = getMap().getPlayer().getPosition();
-            pos.add(diff.scl(4));
-            Projectile proj = new Fireball(getMap(), pos, angle, this);
+            pos.add(lastDir.cpy().scl(2));
+            Projectile proj = new Fireball(getMap(), pos, lastAngle, this);
             getMap().addThing(proj);
         }
     }

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.map.Map;
 
@@ -14,10 +13,9 @@ import java.util.List;
 /**
  * Something that has a position that can change.
  */
-public abstract class Entity implements Something {
+public abstract class Entity implements Something, Collidable {
     private final Map map;
     private final Sprite sprite;
-    private boolean impassable;
     private boolean removed;
     private boolean spawned;
 
@@ -25,35 +23,14 @@ public abstract class Entity implements Something {
         this.map = map;
         this.sprite = new Sprite(texture);
         this.sprite.setSize(width, height);
-        this.impassable = true;
         setPosition(position);
-    }
-
-    @Override
-    public boolean canCollide() {
-        return true;
     }
 
     public abstract void onSpawn();
 
-    public abstract void onCollide(List<Entity> entity);
-
     @Override
     public void update() {
-        List<Entity> collisions = new ArrayList<>();
-        for (Something thing : getMap().getThings()) {
-            if (thing.equals(this) || !thing.canCollide())
-                continue;
 
-            if (thing instanceof Entity) {
-                Entity entity = (Entity) thing;
-                if (entity.getBounds().overlaps(getBounds())) {
-                    collisions.add(entity);
-                }
-            }
-        }
-
-        onCollide(collisions);
     }
 
     public void setSpawned() {
@@ -81,10 +58,6 @@ public abstract class Entity implements Something {
     @Override
     public void render(Batch batch) {
         this.sprite.draw(batch);
-    }
-
-    public boolean isImpassable() {
-        return this.impassable;
     }
 
     public Map getMap() {

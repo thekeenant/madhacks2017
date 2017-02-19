@@ -1,6 +1,7 @@
 package com.midevilgame.map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.midevilgame.entity.Collidable;
 import com.midevilgame.entity.Player;
 import com.midevilgame.entity.Something;
 
@@ -48,8 +49,27 @@ public class Map {
 
         // Update things
         List<Something> things = new ArrayList<>(this.things);
+        List<Collidable> collidables = new ArrayList<>();
         for (Something thing : things) {
             thing.update();
+            if (thing instanceof Collidable) {
+                collidables.add((Collidable) thing);
+            }
+        }
+
+
+        for (Collidable collidable : collidables) {
+            List<Collidable> list = new ArrayList<>();
+            for (Collidable other : collidables) {
+                if (collidable.equals(other))
+                    continue;
+
+                if (collidable.colliding(other)) {
+                    list.add(other);
+                }
+            }
+
+            collidable.onCollide(list);
         }
     }
 

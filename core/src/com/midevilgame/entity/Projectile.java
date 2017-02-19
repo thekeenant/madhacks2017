@@ -23,11 +23,12 @@ public abstract class Projectile extends Entity {
     }
 
     @Override
-    public void onCollide(List<Entity> entities) {
+    public void onCollide(List<Collidable> entities) {
         entities.remove(this.shooter);
-        for (Entity entity : entities) {
-            entity.remove();
-            System.out.println(entity);
+        for (Collidable collidable : entities) {
+            if (collidable instanceof LivingEntity) {
+                collidable.remove();
+            }
         }
     }
 

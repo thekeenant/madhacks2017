@@ -1,8 +1,11 @@
 package com.midevilgame.entity;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.midevilgame.graphics.Fonts;
 
 public class Text implements Something {
     private final BitmapFont font;
@@ -11,12 +14,12 @@ public class Text implements Something {
     private float y;
     private boolean removed;
 
-    public Text(String str, float x, float y) {
+    public Text(String str, FileHandle font, float x, float y) {
         this.x = x;
         this.y = y;
-        this.font = new BitmapFont();
-        this.font.getData().setScale(0.5f, 0.5f);
+        this.font = new BitmapFont(Fonts.DEF_16);
         this.font.setColor(Color.RED);
+        this.font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         this.str = str;
     }
 
@@ -63,10 +66,5 @@ public class Text implements Something {
     @Override
     public float getY() {
         return this.y;
-    }
-
-    @Override
-    public boolean canCollide() {
-        return false;
     }
 }

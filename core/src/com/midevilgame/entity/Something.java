@@ -20,6 +20,4 @@ public interface Something {
     float getX();
 
     float getY();
-
-    boolean canCollide();
 }

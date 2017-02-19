@@ -3,8 +3,11 @@ package com.midevilgame.entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
-public class MapFeature implements Something {
+import java.util.List;
+
+public class MapFeature implements Something, Collidable {
     private Sprite sprite;
 
     private final Texture texture;
@@ -79,7 +82,17 @@ public class MapFeature implements Something {
     }
 
     @Override
-    public boolean canCollide() {
-        return false;
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
+    }
+
+    @Override
+    public void onCollide(List<Collidable> collisions) {
+        // Nothing matters.
+    }
+
+    @Override
+    public boolean isPassable() {
+        return true;
     }
 }

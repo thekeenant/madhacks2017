@@ -17,4 +17,9 @@ public class Fireball extends Projectile {
     public float getSpeed() {
         return Magic.FIREBALL_SPEED;
     }
+
+    @Override
+    public boolean isPassable() {
+        return true;
+    }
 }

@@ -22,7 +22,7 @@ public class Attachment implements Something {
 
     @Override
     public boolean isRemoved() {
-        return this.attached.isRemoved();
+        return this.base.isRemoved() || this.attached.isRemoved();
     }
 
     @Override
@@ -61,10 +61,5 @@ public class Attachment implements Something {
     @Override
     public float getY() {
         return this.attached.getY();
-    }
-
-    @Override
-    public boolean canCollide() {
-        return this.attached.canCollide();
     }
 }

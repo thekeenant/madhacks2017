@@ -6,7 +6,7 @@ import com.midevilgame.map.Map;
 
 import java.util.List;
 
-public class Enemy extends Entity {
+public class Enemy extends LivingEntity {
     public Enemy(Map map, Texture texture, Vector2 position, float width, float height) {
         super(map, texture, position, width, height);
     }
@@ -17,12 +17,17 @@ public class Enemy extends Entity {
     }
 
     @Override
-    public void onCollide(List<Entity> entity) {
+    public void update() {
+        super.update();
+    }
+
+    @Override
+    public void onCollide(List<Collidable> collisions) {
 
     }
 
     @Override
-    public void update() {
-        super.update();
+    public boolean isPassable() {
+        return false;
     }
 }

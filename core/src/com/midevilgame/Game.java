@@ -13,10 +13,13 @@ import com.midevilgame.entity.*;
 import com.midevilgame.graphics.Textures;
 import com.midevilgame.map.Map;
 
+import java.util.Random;
+
 public class Game implements ApplicationListener {
 	private Map currentMap;
 	private OrthographicCamera cam;
-	private SpriteBatch batch;
+    private SpriteBatch overlay;
+    private SpriteBatch batch;
 
 	public OrthographicCamera getCam() {
 		return cam;
@@ -28,10 +31,19 @@ public class Game implements ApplicationListener {
 
 		currentMap.addThing(new MapFeature(Textures.STONE_BG, 0, 0, 1000, 1000, false));
 		currentMap.addThing(new Player(currentMap, Textures.CHARACTER_RIGHT, new Vector2(), 16, 16));
-		currentMap.addThing(new Ghost(currentMap, new Vector2(750, 750), 16, 16));
         currentMap.addThing(new MapFeature(Textures.WALL, 0, 1000, 1000, 16, true));
-		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", 0, 0), -5, 24);
+		Attachment attachment = new Attachment(currentMap.getPlayer(), new Text("abcdefg", 0, 0, 0.3f, 0.3f), -5, 24);
 		currentMap.addThing(attachment);
+
+
+        for (int x = 100; x < 1000; x += new Random().nextInt(100)) {
+            for (int y = 100; y < 1000; y += new Random().nextInt(100)) {
+                Ghost ghost = new Ghost(currentMap, new Vector2(x, y), 16, 16);
+                currentMap.addThing(ghost);
+                Attachment spooky = new Attachment(ghost, new Text("||||||||||||||", 0, 0, 0.4f, 0.4f), -5, 24);
+                currentMap.addThing(spooky);
+            }
+        }
 
 		Gdx.input.setInputProcessor(new InputListener(this));
 
@@ -45,6 +57,7 @@ public class Game implements ApplicationListener {
 		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
 		cam.update();
 
+        overlay = new SpriteBatch();
 		batch = new SpriteBatch();
 	}
 
@@ -63,7 +76,15 @@ public class Game implements ApplicationListener {
 		currentMap.render(batch);
 
 		batch.end();
-	}
+
+        overlay.begin();
+
+        Text text = new Text("test", 50, 50, 10, 10);
+        text.render(overlay);
+
+        overlay.end();
+
+    }
 
 	private void handleInput() {
 	}
