@@ -3,6 +3,7 @@ package com.midevilgame.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.midevilgame.Magic;
 import com.midevilgame.assets.Textures;
@@ -14,9 +15,15 @@ import java.util.List;
 public class Player extends LivingEntity {
     private Vector2 lastDir = Vector2.Zero;
     private float lastAngle;
+    private long lastFire;
+    private boolean dead;
 
     public Player(Map map, Vector2 position, float width, float height) {
         super(map, Textures.PLAYER_RIGHT, position, width, height);
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 
     @Override
@@ -31,7 +38,13 @@ public class Player extends LivingEntity {
 
     @Override
     public void remove() {
-        // no you didn't hah.
+        dead = true;
+    }
+
+    @Override
+    public void render(Batch batch) {
+        if (!dead)
+            super.render(batch);
     }
 
     @Override
@@ -46,7 +59,11 @@ public class Player extends LivingEntity {
 
     @Override
     public void update() {
+        if (dead)
+            return;
+
         super.update();
+
 
         Vector2 before = getPosition();
 
@@ -89,11 +106,16 @@ public class Player extends LivingEntity {
             getSprite().setTexture(Textures.PLAYER_LEFT);
         }
 
-        if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-            Vector2 pos = getMap().getPlayer().getPosition();
-            pos.add(lastDir.cpy().scl(2));
-            Projectile proj = new Fireball(getMap(), pos, lastAngle, this);
-            getMap().addThing(proj);
+        long now = System.currentTimeMillis();
+
+        if (now - lastFire > 1000) {
+            if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+                Vector2 pos = getMap().getPlayer().getPosition();
+                pos.add(lastDir.cpy().scl(2));
+                Projectile proj = new Fireball(getMap(), pos, lastAngle, this);
+                getMap().addThing(proj);
+                lastFire = now;
+            }
         }
     }
 }
