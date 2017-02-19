@@ -72,9 +72,10 @@ public class Map {
 
     public Vector2 findNextPathPoint(Vector2 pos, Vector2 target) {
         List<GridCell> path = findPath(pos, target);
-        if (path.isEmpty())
+        if (path == null || path.isEmpty())
             return pos.cpy();
-        return new Vector2(path.get(0).x * 16, path.get(0).y * 16);
+        int next = path.size() == 1 ? 0 : 1;
+        return new Vector2(path.get(next).x * 16, path.get(next).y * 16);
     }
 
     public List<GridCell> findPath(Vector2 pos, Vector2 target) {
@@ -82,7 +83,6 @@ public class Map {
         int fromY = (int) Math.floor(pos.y / 16.0f);
         int toX = (int) Math.floor(target.x / 16.0f);
         int toY = (int) Math.floor(target.y / 16.0f);
-        System.out.println(fromX + "," + fromY + " to " + toX + "," + toY);
         return finder.findPath(fromX, fromY, toX, toY, navigation);
     }
 

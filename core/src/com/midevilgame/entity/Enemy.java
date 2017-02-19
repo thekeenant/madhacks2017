@@ -59,6 +59,6 @@ public abstract class Enemy extends LivingEntity {
 
     @Override
     public boolean isPassable() {
-        return false;
+        return true;
     }
 }

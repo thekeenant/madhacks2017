@@ -16,14 +16,16 @@ public class MapFeature implements Something, Collidable {
     private final int width;
     private final int height;
     private final boolean repeating;
+    private final boolean passable;
 
-    public MapFeature(Texture texture, float x, float y, int width, int height, boolean repeating) {
+    public MapFeature(Texture texture, float x, float y, int width, int height, boolean repeating, boolean passable) {
         this.texture = texture;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.repeating = repeating;
+        this.passable = passable;
         if (!repeating) {
             this.sprite = new Sprite(texture);
             this.sprite.setPosition(x, y);
@@ -93,6 +95,6 @@ public class MapFeature implements Something, Collidable {
 
     @Override
     public boolean isPassable() {
-        return true;
+        return passable;
     }
 }

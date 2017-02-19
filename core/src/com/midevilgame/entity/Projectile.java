@@ -9,6 +9,7 @@ import java.util.List;
 public abstract class Projectile extends Entity {
     private final Entity shooter;
     private final float angle;
+    private long spawnTime;
 
     public Projectile(Map map, Texture texture, Vector2 position, float width, float height, float angle, Entity shooter) {
         super(map, texture, position, width, height);
@@ -23,7 +24,7 @@ public abstract class Projectile extends Entity {
 
     @Override
     public void onSpawn() {
-
+        spawnTime = System.currentTimeMillis();
     }
 
     @Override
@@ -34,6 +35,9 @@ public abstract class Projectile extends Entity {
                 LivingEntity living = (LivingEntity) collidable;
                 living.damage(getDamage());
                 onDamage(living);
+            }
+            else if (!collidable.isPassable()) {
+                remove();
             }
         }
     }
@@ -49,6 +53,10 @@ public abstract class Projectile extends Entity {
 
         addX(x);
         addY(y);
+
+        if (System.currentTimeMillis() - spawnTime > 20000) {
+            remove();
+        }
     }
 
     public abstract float getSpeed();
