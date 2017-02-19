@@ -8,6 +8,7 @@ import com.midevilgame.Magic;
 import com.midevilgame.assets.Textures;
 import com.midevilgame.map.Map;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Player extends LivingEntity {
@@ -63,6 +64,14 @@ public class Player extends LivingEntity {
         }
 
         Vector2 after = getPosition();
+        for (Something thing : getMap().getThings()) {
+            if (thing instanceof Collidable) {
+                Collidable col = (Collidable) thing;
+                if (col.colliding(this) && !col.isPassable()) {
+                    this.setPosition(before);
+                }
+            }
+        }
 
         if (!after.equals(before)) {
             Vector2 diff = after.sub(before);
