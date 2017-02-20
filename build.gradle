@@ -51,6 +51,7 @@ project(":html") {
 
     dependencies {
         compile project(":core")
+        compile "com.github.xaguzman:pathfinding:0.2.6:sources"
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
@@ -66,7 +67,6 @@ project(":core") {
 
     dependencies {
         compile "com.github.xaguzman:pathfinding:0.2.6"
-        compile "com.github.xaguzman:pathfinding-gdx-bridge:0.2.6"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
