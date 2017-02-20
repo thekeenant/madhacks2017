@@ -1,5 +1,7 @@
 # Midevil
 
+Made in 24 hours at [Madhacks 2017](http://madhacks.org) hackathon.
+
 ## Install
 For a quick install, just download [Midevil 1.0 release](https://github.com/thekeenant/madhacks2017/releases/download/midevil/midevil-1.0.jar) and run the jar file with Java, or visit http://midevil.keenant.com!
 
